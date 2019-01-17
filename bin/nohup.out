@@ -1,0 +1,439 @@
+Loading ROI.
+Loading feature data.
+Traceback (most recent call last):
+  File "/mnt/parcellator/parcellation/GitHub/niio/niio/loaded.py", line 47, in loadMat
+    matData = h5py.File(infile, mode='r')
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/h5py/_hl/files.py", line 312, in __init__
+    fid = make_fid(name, mode, userblock_size, fapl, swmr=swmr)
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/h5py/_hl/files.py", line 142, in make_fid
+    fid = h5f.open(name, flags, fapl=fapl)
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "h5py/h5f.pyx", line 78, in h5py.h5f.open
+OSError: Unable to open file (file signature not found)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/scipy/io/matlab/mio5.py", line 292, in get_variables
+    res = self.read_var_array(hdr, process)
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/scipy/io/matlab/mio5.py", line 252, in read_var_array
+    return self._matrix_reader.array_from_header(header, process)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "eta2.py", line 31, in <module>
+    F = loaded.load(args.features)
+  File "/mnt/parcellator/parcellation/GitHub/niio/niio/loaded.py", line 32, in load
+    return function_map[file_extension](datafile, **kwargs)
+  File "/mnt/parcellator/parcellation/GitHub/niio/niio/loaded.py", line 50, in loadMat
+    matData = sio.loadmat(infile)
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/scipy/io/matlab/mio.py", line 142, in loadmat
+    matfile_dict = MR.get_variables(variable_names)
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/scipy/io/matlab/mio5.py", line 292, in get_variables
+    res = self.read_var_array(hdr, process)
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "eta2.py", line 3, in <module>
+    from niio import loaded
+  File "/mnt/parcellator/parcellation/GitHub/niio/niio/loaded.py", line 9, in <module>
+    import nibabel as nb
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/nibabel/__init__.py", line 38, in <module>
+    from . import analyze as ana
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/nibabel/analyze.py", line 87, in <module>
+    from .volumeutils import (native_code, swapped_code, make_dt_codes,
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/nibabel/volumeutils.py", line 22, in <module>
+    from .casting import (shared_range, type_info, OK_FLOATS)
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/nibabel/casting.py", line 11, in <module>
+    from .testing import setup_test  # flake8: noqa F401
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/nibabel/testing/__init__.py", line 24, in <module>
+    from nose.tools import (assert_equal, assert_not_equal,
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/nose/__init__.py", line 1, in <module>
+    from nose.core import collector, main, run, run_exit, runmodule
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/nose/core.py", line 11, in <module>
+    from nose.config import Config, all_config_files
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/nose/config.py", line 9, in <module>
+    from nose.plugins.manager import NoPlugins
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/nose/plugins/__init__.py", line 185, in <module>
+    from nose.plugins.manager import *
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/nose/plugins/manager.py", line 418, in <module>
+    import pkg_resources
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/pkg_resources/__init__.py", line 50, in <module>
+    from pkg_resources.extern import six
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 955, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 656, in _load_unlocked
+  File "<frozen importlib._bootstrap>", line 626, in _load_backward_compatible
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/pkg_resources/extern/__init__.py", line 43, in load_module
+    __import__(extant)
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 955, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 665, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 674, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 764, in get_code
+  File "<frozen importlib._bootstrap_external>", line 833, in get_data
+KeyboardInterrupt
+Failed to import the site module
+Traceback (most recent call last):
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site.py", line 541, in <module>
+    main()
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site.py", line 523, in main
+    known_paths = addsitepackages(known_paths)
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site.py", line 320, in addsitepackages
+    addsitedir(sitedir, known_paths)
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site.py", line 207, in addsitedir
+    addpackage(sitedir, name, known_paths)
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site.py", line 168, in addpackage
+    exec(line)
+  File "<string>", line 1, in <module>
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/types.py", line 171, in <module>
+    import functools as _functools
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 951, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 894, in _find_spec
+  File "<frozen importlib._bootstrap>", line 711, in find_spec
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "eta2.py", line 2, in <module>
+    import numpy as np
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/__init__.py", line 158, in <module>
+    from . import add_newdocs
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/add_newdocs.py", line 13, in <module>
+    from numpy.lib import add_newdoc
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 955, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 665, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 674, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 764, in get_code
+  File "<frozen importlib._bootstrap_external>", line 832, in get_data
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "eta2.py", line 2, in <module>
+    import numpy as np
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/__init__.py", line 158, in <module>
+    from . import add_newdocs
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/add_newdocs.py", line 13, in <module>
+    from numpy.lib import add_newdoc
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/lib/__init__.py", line 8, in <module>
+    from .type_check import *
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/lib/type_check.py", line 11, in <module>
+    import numpy.core.numeric as _nx
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/core/__init__.py", line 35, in <module>
+    from . import _internal  # for freeze programs
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/core/_internal.py", line 15, in <module>
+    import ctypes
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/ctypes/__init__.py", line 436, in <module>
+    pythonapi = PyDLL(None)
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/ctypes/__init__.py", line 342, in __init__
+    class _FuncPtr(_CFuncPtr):
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "eta2.py", line 1, in <module>
+    import argparse
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/argparse.py", line 91, in <module>
+    import textwrap as _textwrap
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 955, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 665, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 674, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 779, in get_code
+  File "<frozen importlib._bootstrap_external>", line 487, in _compile_bytecode
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "eta2.py", line 2, in <module>
+    import numpy as np
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/__init__.py", line 158, in <module>
+    from . import add_newdocs
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/add_newdocs.py", line 13, in <module>
+    from numpy.lib import add_newdoc
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/lib/__init__.py", line 8, in <module>
+    from .type_check import *
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/lib/type_check.py", line 11, in <module>
+    import numpy.core.numeric as _nx
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/core/__init__.py", line 35, in <module>
+    from . import _internal  # for freeze programs
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/core/_internal.py", line 18, in <module>
+    from .numerictypes import object_
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/core/numerictypes.py", line 87, in <module>
+    import numbers
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/numbers.py", line 267, in <module>
+    class Rational(Real):
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/abc.py", line 142, in __new__
+    abstracts.add(name)
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "eta2.py", line 2, in <module>
+    import numpy as np
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/__init__.py", line 149, in <module>
+    from .version import git_revision as __git_revision__
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 955, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 665, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 674, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 758, in get_code
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "eta2.py", line 2, in <module>
+    import numpy as np
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/__init__.py", line 158, in <module>
+    from . import add_newdocs
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/add_newdocs.py", line 13, in <module>
+    from numpy.lib import add_newdoc
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/lib/__init__.py", line 8, in <module>
+    from .type_check import *
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/lib/type_check.py", line 11, in <module>
+    import numpy.core.numeric as _nx
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/core/__init__.py", line 35, in <module>
+    from . import _internal  # for freeze programs
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/core/_internal.py", line 12, in <module>
+    from numpy.compat import basestring
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/compat/__init__.py", line 14, in <module>
+    from . import py3k
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/compat/py3k.py", line 14, in <module>
+    from pathlib import Path
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 955, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 665, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 674, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 779, in get_code
+  File "<frozen importlib._bootstrap_external>", line 487, in _compile_bytecode
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "eta2.py", line 2, in <module>
+    import numpy as np
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/__init__.py", line 142, in <module>
+    from numpy.__config__ import show as show_config
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 955, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 665, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 674, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 764, in get_code
+  File "<frozen importlib._bootstrap_external>", line 832, in get_data
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "eta2.py", line 1, in <module>
+    import argparse
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/argparse.py", line 89, in <module>
+    import re as _re
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/re.py", line 123, in <module>
+    import sre_compile
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/sre_compile.py", line 14, in <module>
+    import sre_parse
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/sre_parse.py", line 15, in <module>
+    from sre_constants import *
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 955, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 665, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 674, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 764, in get_code
+  File "<frozen importlib._bootstrap_external>", line 832, in get_data
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "eta2.py", line 1, in <module>
+    import argparse
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/argparse.py", line 93, in <module>
+    from gettext import gettext as _, ngettext
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/gettext.py", line 82, in <module>
+    """, re.VERBOSE|re.DOTALL)
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/re.py", line 233, in compile
+    return _compile(pattern, flags)
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/re.py", line 301, in _compile
+    p = sre_compile.compile(pattern, flags)
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/sre_compile.py", line 562, in compile
+    p = sre_parse.parse(p, flags)
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/sre_parse.py", line 855, in parse
+    p = _parse_sub(source, pattern, flags & SRE_FLAG_VERBOSE, 0)
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/sre_parse.py", line 416, in _parse_sub
+    not nested and not items))
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/sre_parse.py", line 492, in _parse
+    if this in WHITESPACE:
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "eta2.py", line 2, in <module>
+    import numpy as np
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/__init__.py", line 142, in <module>
+    from numpy.__config__ import show as show_config
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 951, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 894, in _find_spec
+  File "<frozen importlib._bootstrap_external>", line 1157, in find_spec
+  File "<frozen importlib._bootstrap_external>", line 1129, in _get_spec
+  File "<frozen importlib._bootstrap_external>", line 1268, in find_spec
+  File "<frozen importlib._bootstrap_external>", line 60, in _path_join
+  File "<frozen importlib._bootstrap_external>", line 60, in <listcomp>
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "eta2.py", line 1, in <module>
+    import argparse
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/argparse.py", line 93, in <module>
+    from gettext import gettext as _, ngettext
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/gettext.py", line 49, in <module>
+    import locale, copy, io, os, re, struct, sys
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 955, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 665, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 674, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 779, in get_code
+  File "<frozen importlib._bootstrap_external>", line 487, in _compile_bytecode
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "eta2.py", line 2, in <module>
+    import numpy as np
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/__init__.py", line 149, in <module>
+    from .version import git_revision as __git_revision__
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 955, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 665, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 674, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 764, in get_code
+  File "<frozen importlib._bootstrap_external>", line 832, in get_data
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "eta2.py", line 2, in <module>
+    import numpy as np
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/__init__.py", line 158, in <module>
+    from . import add_newdocs
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/add_newdocs.py", line 13, in <module>
+    from numpy.lib import add_newdoc
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/lib/__init__.py", line 8, in <module>
+    from .type_check import *
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/lib/type_check.py", line 11, in <module>
+    import numpy.core.numeric as _nx
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 955, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 665, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 674, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 764, in get_code
+  File "<frozen importlib._bootstrap_external>", line 832, in get_data
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "eta2.py", line 1, in <module>
+    import argparse
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/argparse.py", line 93, in <module>
+    from gettext import gettext as _, ngettext
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/gettext.py", line 49, in <module>
+    import locale, copy, io, os, re, struct, sys
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 955, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 665, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 674, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 764, in get_code
+  File "<frozen importlib._bootstrap_external>", line 832, in get_data
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "eta2.py", line 1, in <module>
+    import argparse
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/argparse.py", line 93, in <module>
+    from gettext import gettext as _, ngettext
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/gettext.py", line 49, in <module>
+    import locale, copy, io, os, re, struct, sys
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 951, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 894, in _find_spec
+  File "<frozen importlib._bootstrap_external>", line 1157, in find_spec
+  File "<frozen importlib._bootstrap_external>", line 1129, in _get_spec
+  File "<frozen importlib._bootstrap_external>", line 1270, in find_spec
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "eta2.py", line 2, in <module>
+    import numpy as np
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/__init__.py", line 158, in <module>
+    from . import add_newdocs
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 955, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 665, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 674, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 779, in get_code
+  File "<frozen importlib._bootstrap_external>", line 487, in _compile_bytecode
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "eta2.py", line 2, in <module>
+    import numpy as np
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/__init__.py", line 158, in <module>
+    from . import add_newdocs
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/add_newdocs.py", line 13, in <module>
+    from numpy.lib import add_newdoc
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/lib/__init__.py", line 8, in <module>
+    from .type_check import *
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/lib/type_check.py", line 11, in <module>
+    import numpy.core.numeric as _nx
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/core/__init__.py", line 16, in <module>
+    from . import multiarray
+SystemError: initialization of multiarray raised unreported exception
+Traceback (most recent call last):
+  File "eta2.py", line 1, in <module>
+    import argparse
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/argparse.py", line 93, in <module>
+    from gettext import gettext as _, ngettext
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/gettext.py", line 49, in <module>
+    import locale, copy, io, os, re, struct, sys
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/struct.py", line 13, in <module>
+    from _struct import *
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "eta2.py", line 1, in <module>
+    import argparse
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/argparse.py", line 91, in <module>
+    import textwrap as _textwrap
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/textwrap.py", line 17, in <module>
+    class TextWrapper:
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/textwrap.py", line 98, in TextWrapper
+    re.VERBOSE)
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/re.py", line 233, in compile
+    return _compile(pattern, flags)
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/re.py", line 301, in _compile
+    p = sre_compile.compile(pattern, flags)
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/sre_compile.py", line 566, in compile
+    code = _code(p, flags)
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/sre_compile.py", line 551, in _code
+    _compile(code, p.data, flags)
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/sre_compile.py", line 146, in _compile
+    _compile(code, p, (flags | add_flags) & ~del_flags)
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/sre_compile.py", line 187, in _compile
+    _compile(code, av, flags)
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/sre_compile.py", line 146, in _compile
+    _compile(code, p, (flags | add_flags) & ~del_flags)
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/sre_compile.py", line 187, in _compile
+    _compile(code, av, flags)
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/sre_compile.py", line 162, in _compile
+    _compile(code, av[1], flags)
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/sre_compile.py", line 108, in _compile
+    _compile_charset(av, flags, code, fixup, fixes)
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/sre_compile.py", line 240, in _compile_charset
+    if flags & SRE_FLAG_LOCALE:
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/enum.py", line 804, in __and__
+    return self.__class__(self._value_ & self.__class__(other)._value_)
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/enum.py", line 291, in __call__
+    return cls.__new__(cls, value)
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "eta2.py", line 1, in <module>
+    import argparse
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/argparse.py", line 93, in <module>
+    from gettext import gettext as _, ngettext
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/gettext.py", line 49, in <module>
+    import locale, copy, io, os, re, struct, sys
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 955, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 665, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 674, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 779, in get_code
+  File "<frozen importlib._bootstrap_external>", line 487, in _compile_bytecode
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "eta2.py", line 1, in <module>
+    import argparse
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/argparse.py", line 93, in <module>
+    from gettext import gettext as _, ngettext
+  File "/mnt/home/keschenb/anaconda3/lib/python3.6/gettext.py", line 49, in <module>
+    import locale, copy, io, os, re, struct, sys
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 951, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 894, in _find_spec
+  File "<frozen importlib._bootstrap_external>", line 1157, in find_spec
+  File "<frozen importlib._bootstrap_external>", line 1129, in _get_spec
+  File "<frozen importlib._bootstrap_external>", line 1241, in find_spec
+  File "<frozen importlib._bootstrap_external>", line 82, in _path_stat
+KeyboardInterrupt
