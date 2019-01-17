@@ -12,6 +12,7 @@
 # NeuroImage 170:83-94. 
 
 import numpy as np
+from scipy.spatial.distance import cdist
 
 def pca(X):
 
@@ -32,28 +33,22 @@ def pca(X):
     
     return V, Y, evals
 
-def corr(X,Y):
-    
-    Y = Y.T
-    X = X.T
+def corr(X, Y):
 
-    R = np.zeros((X.shape[0],Y.shape[0]))
-    for i in range(0,R.shape[1]):
-        y = Y[i,:]
-        Xm = np.reshape(np.mean(X,axis=1),(X.shape[0],1))
-        ym = np.mean(y)
-        r_num = np.sum((X-Xm)*(y-ym),axis=1)
-        r_den = np.sqrt(np.sum((X-Xm)**2,axis=1)*np.sum((y-ym)**2))
-        R[:,i] = r_num / r_den
-    
-    return R
+	Y = Y.T
+	X = X.T
+
+	R = cdist(X, Y, metric='correlation')
+	R = 1-R
+
+	return R
 
 def eta2(X):
     
-    S = np.zeros((X.shape[0],X.shape[0]))
-    for i in range(0,X.shape[0]):
-        for j in range(i,X.shape[0]):
-            mi = np.mean([X[i,:],X[j,:]],0) 
+    S = np.zeros((X.shape[0], X.shape[0]))
+    for i in range(0, X.shape[0]):
+        for j in range(i, X.shape[0]):
+            mi = np.mean([X[i,:], X[j,:]], 0) 
             mm = np.mean(mi)
             ssw = np.sum(np.square(X[i,:]-mi) + np.square(X[j,:]-mi))
             sst = np.sum(np.square(X[i,:]-mm) + np.square(X[j,:]-mm))
