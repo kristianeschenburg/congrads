@@ -86,5 +86,5 @@ for lab in labels:
 
     evecs[lab].create_dataset(name='evecs', data=y)
 
-outEvecs = ''.join([args.dir, args.output, '.func.gii'])
+outEvecs = ''.join([args.dir, args.outbase, '.func.gii'])
 write.save(z, outEvecs, 'CortexLeft')
