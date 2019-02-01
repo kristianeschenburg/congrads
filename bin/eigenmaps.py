@@ -63,5 +63,5 @@ z = np.zeros((roi.shape[0], y.shape[1]-1))
 for evec in range(0, y.shape[1]-1):
     z[roi, evec] = y[:, evec+1]
 
-outEvecs = ''.join([args.dir, args.output])
+outEvecs = ''.join([args.dir, args.outbase])
 write.save(z, outEvecs, 'CortexLeft')
