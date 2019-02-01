@@ -46,6 +46,8 @@ z = np.zeros((clusters.shape[0], args.evecs-1))
 
 for lab in labels:
 
+    print('Processing label {:}'.format(lab))
+
     evecs.create_group(name=str(lab))
     indices = np.asarray(sims[lab]['indices'])
     evecs[lab].create_dataset(name='indices', data=indices)
@@ -74,6 +76,9 @@ for lab in labels:
         if args.normalize: 
             tmp = y[:, evec] - min(y[:, evec])
             y[:,evec] = np.divide(tmp, max(tmp))
+
+    print('Eigenvector shape: {:}'.format(y.shape))
+    print('Indices shape: {:}'.format(indices.shape))
 
     print('Writing connectopic maps to file...')
     for evec in range(0, y.shape[1]-1):
