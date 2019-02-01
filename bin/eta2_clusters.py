@@ -59,7 +59,7 @@ for lab in labels:
 
     print('Processing label {:}'.format(lab))
 
-    bool_inds = (cluster == lab)s
+    bool_inds = (cluster == lab)
     indices = np.where(cluster == lab)[0]
 
     sims.create_group(name=str(lab))
