@@ -47,9 +47,9 @@ z = np.zeros((clusters.shape[0], args.evecs-1))
 for lab in labels:
 
     evecs.create_group(name=str(lab))
-    evecs[lab].create_dataset(name='indices', data=indices)
-
     indices = np.asarray(sims[lab]['indices'])
+    evecs[lab].create_dataset(name='indices', data=indices)
+    
     simmat = np.asarray(sims[lab]['eta2'])
 
     print('Computing distance matrix.')
