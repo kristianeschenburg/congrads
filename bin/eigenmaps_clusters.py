@@ -42,9 +42,9 @@ labels = list(sims.keys())
 outEvecs = ''.join([args.dir, args.outbase, '.Evecs.h5'])
 evecs = h5py.File(name=outEvecs, mode='a')
 
-z = np.zeros((clusters.shape[0], args.evecs))
+z = np.zeros((clusters.shape[0], args.evecs*len(labels)))
 
-for lab in labels:
+for j, lab in enumerate(labels):
 
     print('Processing label {:}'.format(lab))
 
@@ -82,7 +82,7 @@ for lab in labels:
 
     print('Writing connectopic maps to file...')
     for evec in range(0, y.shape[1]-1):
-        z[indices, evec] = y[:, evec+1]
+        z[indices, (j*args.evecs)+evec] = y[:, evec+1]
 
     evecs[lab].create_dataset(name='evecs', data=y)
 
