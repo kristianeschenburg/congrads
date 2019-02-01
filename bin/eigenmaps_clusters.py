@@ -42,7 +42,7 @@ labels = list(sims.keys())
 outEvecs = ''.join([args.dir, args.outbase, '.Evecs.h5'])
 evecs = h5py.File(name=outEvecs, mode='a')
 
-z = np.zeros((clusters.shape[0], args.evecs-1))
+z = np.zeros((clusters.shape[0], args.evecs))
 
 for lab in labels:
 
