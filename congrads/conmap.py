@@ -19,10 +19,10 @@ def pca(X):
     from scipy.linalg import svd
 
     # Center X by subtracting off column means
-    X -= np.mean(X,0)
+    X -= np.mean(X, 0)
 
     # The principal components are the eigenvectors of S = X'*X./(n-1), but computed using SVD
-    [U,sigma,V] = svd(X,full_matrices=False)
+    [U, sigma, V] = svd(X,f ull_matrices=False)
 
     # Project X onto the principal component axes
     Y = U*sigma

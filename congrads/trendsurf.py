@@ -59,11 +59,11 @@ def save_nifti(data,filename,examplenii,maskIndices):
     array_img = nib.Nifti1Image(array_data,ex_img.affine,ex_img.header)
     nib.save(array_img,filename)
 
-def create_basis(X,dimpoly):
+def create_basis(X, dimpoly):
 
     dimx = X.shape[1]
     print('Generating polynomial basis set of degree',str(dimpoly),'...')
-    Phi = np.zeros((X.shape[0],X.shape[1]*dimpoly))
+    Phi = np.zeros((X.shape[0], X.shape[1]*dimpoly))
     colid = np.arange(0,dimx)
     for d in range(1, dimpoly+1):
         Phi[:,colid] = X**d
