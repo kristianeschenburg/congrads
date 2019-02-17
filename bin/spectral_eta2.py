@@ -5,6 +5,7 @@ from sklearn.cluster import SpectralClustering as spect
 
 from fragmenter import RegionExtractor as re
 from niio import loaded, write
+from congrads import conmap
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-s', '--subject', help='Subject ID.', required=True, type=str)
@@ -32,6 +33,9 @@ eta = loaded.load(args.eta)
 eta[np.isinf(eta)] = 0
 eta[np.isnan(eta)] = 0
 
+dist = conmap.norm(eta)**2
+W = np.multiply(conmap.adjacency(dist), eta)
+
 cmin = args.clusters[0]
 cmax = args.clusters[1]
 
@@ -40,7 +44,7 @@ for c in np.arange(cmin, cmax+1):
     print('Clusters: {:}'.format(c))
 
     S = spect(n_clusters=c, affinity='precomputed')
-    S.fit(eta)
+    S.fit(W)
 
     labs = S.labels_
     labs[labs==0] = (labs.max() + 1)
