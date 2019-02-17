@@ -49,4 +49,4 @@ for c in np.arange(cmin, cmax+1):
     z[indices] = labs
 
     out_path = '{:}{:}.L.{:}.Cluster.{:}.func.gii'.format(args.dir, args.subject, args.outbase, c)
-    write.save(z, out_path, 'CortextLeft')
+    write.save(z, out_path, 'CortexLeft')
