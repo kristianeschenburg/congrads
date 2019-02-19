@@ -20,6 +20,8 @@ parser.add_argument('-bo', '--outbase', help='Output base name.', required=True,
 
 args = parser.parse_args()
 
+print('Subject: {:}'.format(args.subject))
+
 label = loaded.load(args.label)
 R = re.Extractor(args.label)
 region_map = R.map_regions()
@@ -33,7 +35,9 @@ eta = loaded.load(args.eta)
 eta[np.isinf(eta)] = 0
 eta[np.isnan(eta)] = 0
 
+print('Generating distance matrix.')
 dist = conmap.norm(eta)**2
+print('Generating adjacency matrix.')
 W = np.multiply(conmap.adjacency(dist), eta)
 
 cmin = args.clusters[0]
