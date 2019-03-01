@@ -66,11 +66,11 @@ print('Generating distance matrix...')
 G = nx.from_numpy_array(adjmat)
 apsp = nx.floyd_warshall_numpy(G)
 
-for dist in np.arange(1, args.hop_distance+1):
+for hops in np.arange(1, args.hop_distance+1):
 
-    print('Clustering at distance: {:}'.format(dist))
+    print('Clustering at distance: {:}'.format(hops))
 
-    distmat = (apsp<=dist).astype(np.float32)
+    distmat = (apsp <= hops).astype(np.float32)
     print('{:} non-zero entries in distance matrix.'.format(distmat.sum()))
 
     sorted_eta = eta[:, sort_inds]
@@ -78,11 +78,11 @@ for dist in np.arange(1, args.hop_distance+1):
     sorted_eta = sorted_eta*distmat
     print('{:} non-zero entries in eta matrix.'.format((sorted_eta != 0).sum()))
 
-    for c in np.arange(cmin, cmax+1):
+    for clust_count in np.arange(cmin, cmax+1):
 
-        print('Clusters: {:}'.format(c))
+        print('Clusters: {:}'.format(clust_count))
 
-        S = spect(n_clusters=c, affinity='precomputed')
+        S = spect(n_clusters=clust_count, affinity='precomputed')
         S.fit(sorted_eta)
 
         labs = S.labels_
@@ -91,5 +91,6 @@ for dist in np.arange(1, args.hop_distance+1):
         z = np.zeros((label.shape))
         z[indices[sort_inds]] = labs
 
-        out_path = '{:}{:}.L.{:}.Cluster.{:}.Distance.{:}.func.gii'.format(args.dir, args.subject, args.outbase, c, dist)
+        out_path = '{:}{:}.L.{:}.Cluster.{:}.Distance.{:}.func.gii'.format(
+            args.dir, args.subject, args.outbase, clust_count, hops)
         write.save(z, out_path, 'CortexLeft')
