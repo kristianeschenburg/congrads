@@ -66,16 +66,17 @@ print('Generating distance matrix...')
 G = nx.from_numpy_array(adjmat)
 apsp = nx.floyd_warshall_numpy(G)
 
-distmat = np.zeros((len(indices), len(indices)))
-for dist in np.arange(1, args.hop_distance):
+for dist in np.arange(1, args.hop_distance+1):
 
     print('Clustering at distance: {:}'.format(dist))
 
-    distmat = (apsp<=dist)
+    distmat = (apsp<=dist).astype(np.float32)
+    print('{:} non-zero entries in distance matrix.'.format(distmat.sum()))
 
     sorted_eta = eta[:, sort_inds]
     sorted_eta = sorted_eta[sort_inds, :]
     sorted_eta = sorted_eta*distmat
+    print('{:} non-zero entries in eta matrix.'.format((sorted_eta != 0).sum()))
 
     for c in np.arange(cmin, cmax+1):
 

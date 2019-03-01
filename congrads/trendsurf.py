@@ -71,7 +71,7 @@ def create_basis(X, dimpoly):
 
     return Phi
 
-def main(filename,maskfile,outdir,basis,ard=False):
+def main(filename, maskfile, outdir, basis, ard=False):
 
     """ :outputs: * yhat - predictive mean
                   * ys2 - predictive variance
