@@ -1,6 +1,8 @@
 import argparse
 import nibabel as nb
 import numpy as np
+import scipy.io as sio
+import os
 
 from sklearn.cluster import SpectralClustering as spect
 
@@ -23,6 +25,8 @@ parser.add_argument('-r', '--rois', help='ROI names.', required=True, type=str,
 
 parser.add_argument('-hops', '--hop_distance', help='Maximum hop distance.',
     required=True, type=int)
+parser.add_argument('-dm', '--distmat', help='Precomputed distance matrix.',
+    required=False, type=str, default=None)
 
 parser.add_argument('-d', '--dir', help='Output directory.', required=True, type=str)
 parser.add_argument('-bo', '--outbase', help='Output base name.', required=True, type=str)
@@ -62,16 +66,27 @@ for k, v in S.adj.items():
     for n in v:
         adjmat[index2coords[k], index2coords[n]] = 1
 
-print('Generating distance matrix...')
-G = nx.from_numpy_array(adjmat)
-apsp = nx.floyd_warshall_numpy(G)
+if not args.distmat:
+    print('Generating distance matrix...')
+    G = nx.from_numpy_array(adjmat)
+    apsp = nx.floyd_warshall_numpy(G)
+else:
+    print('Loading distance matrix...')
+    apsp = loaded.load(args.distmat)
+
+apsp = np.asarray(apsp)
+A = {'apsp': apsp}
+
+distfile = '{:}{:}.L.IPL.DistanceMatrix.mat'.format(args.dir, args.subject)
+if not os.path.isfile(distfile):
+    print('Saving distance matrix.')
+    sio.savemat(file_name=distfile, mdict=A)
 
 for hops in np.arange(1, args.hop_distance+1):
 
     print('Clustering at distance: {:}'.format(hops))
 
-    distmat = (apsp <= hops).astype(np.float32)
-    distmat = (distmat + distmat.T)/2
+    distmat = np.asarray(apsp <= hops)
     print('{:} non-zero entries in distance matrix.'.format(distmat.sum()))
 
     sorted_eta = eta[:, sort_inds]
