@@ -71,6 +71,7 @@ for hops in np.arange(1, args.hop_distance+1):
     print('Clustering at distance: {:}'.format(hops))
 
     distmat = (apsp <= hops).astype(np.float32)
+    distmat = (distmat + distmat.T)/2
     print('{:} non-zero entries in distance matrix.'.format(distmat.sum()))
 
     sorted_eta = eta[:, sort_inds]
