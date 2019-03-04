@@ -35,7 +35,8 @@ print('Generating region map...')
 args = parser.parse_args()
 label = loaded.load(args.label)
 R = re.Extractor(args.label)
-region_map = R.map_regions()
+indices = R.indices(R.map_regions(), args.rois)
+sort_inds = np.argsort(indices)
 
 print('Loading eta matrix...')
 eta = loaded.load(args.eta)
@@ -44,12 +45,6 @@ eta[np.isnan(eta)] = 0
 
 cmin = args.clusters[0]
 cmax = args.clusters[1]
-
-indices = []
-for r in args.rois:
-    indices.append(region_map[r])
-indices = np.concatenate(indices)
-sort_inds = np.argsort(indices)
 
 print('Generating adjacency matrix...')
 surf = nb.load(args.surface)
@@ -77,23 +72,28 @@ else:
 apsp = np.asarray(apsp)
 A = {'apsp': apsp}
 
+# save distance matrix if it doesn't exist yet
 distfile = '{:}{:}.L.IPL.DistanceMatrix.mat'.format(args.dir, args.subject)
 if not os.path.isfile(distfile):
     print('Saving distance matrix.')
     sio.savemat(file_name=distfile, mdict=A)
 
+# loop over distances
 for hops in np.arange(1, args.hop_distance+1):
 
     print('Clustering at distance: {:}'.format(hops))
 
+    # threshold distance matrix
     distmat = np.asarray(apsp <= hops)
     print('{:} non-zero entries in distance matrix.'.format(distmat.sum()))
 
+    # sort eta matrix
     sorted_eta = eta[:, sort_inds]
     sorted_eta = sorted_eta[sort_inds, :]
     sorted_eta = sorted_eta*distmat
     print('{:} non-zero entries in eta matrix.'.format((sorted_eta != 0).sum()))
 
+    # loop over cluster counts
     for clust_count in np.arange(cmin, cmax+1):
 
         print('Clusters: {:}'.format(clust_count))
