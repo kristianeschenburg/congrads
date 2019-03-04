@@ -1,9 +1,0 @@
-Loading feature data.
-Traceback (most recent call last):
-  File "eta2_regions.py", line 62, in <module>
-    F = (F-F.mean(1)[:, None]) / (F.std(1)[:, None])
-  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/core/_methods.py", line 135, in _std
-    keepdims=keepdims)
-  File "/mnt/home/keschenb/anaconda3/lib/python3.6/site-packages/numpy/core/_methods.py", line 116, in _var
-    x = um.multiply(x, x, out=x)
-KeyboardInterrupt
