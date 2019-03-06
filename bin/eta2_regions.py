@@ -79,8 +79,9 @@ if target_exists:
 else:
     B = F[sindices, :]
 
-zeros = np.isnan(np.abs(B).sum(1))
-print(B[zeros, :])
+B[np.isnan(B)] = 0
+B[np.isinf(B)] = 0
+zeros = np.where(np.abs(B).sum(1) == 0)[0]
 print('Zero index target region shape: {:}'.format(zeros.shape))
 B = B[~zeros, :]
 
