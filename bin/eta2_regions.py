@@ -80,6 +80,7 @@ else:
     B = F[sindices, :]
 
 zeros = np.isnan(np.abs(B).sum(1))
+print(B[zeros, :])
 print('Zero index target region shape: {:}'.format(zeros.shape))
 B = B[~zeros, :]
 
