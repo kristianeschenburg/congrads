@@ -63,11 +63,16 @@ else:
     if n < p:
         F = F.T
 
+F[np.isnan(F)] = 0
+F[np.isinf(F)] = 0
+
 # standardize
 F = (F-F.mean(1)[:, None]) / (F.std(1)[:, None])
 
 # get source region data matrix and transpose
 A = F[sindices, :]
+A[np.isnan(A)] = 0
+A[np.isinf(A)] = 0
 print('ROI shape: {:}'.format(A.shape))
 
 print('Transpose to generate time X samples matrix.')
