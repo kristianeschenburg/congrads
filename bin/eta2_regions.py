@@ -34,10 +34,13 @@ else:
 sindices=[]
 tindices=[]
 
+# get indices of source region
 for sr in args.sroi:
     sindices.append(region_map[sr])
 sindices = np.concatenate(sindices)
 
+# if targets are supplied, get indices of targets
+# otherwise set to False
 if args.troi:
    target_exists=True
    for tr in args.troi:
@@ -54,25 +57,30 @@ except:
 else:
     print ('Loading feature data.')
     F = loaded.load(args.features)
-    n,p = F.shape
+    n, p = F.shape
 
+    # n_samples should be greater than n_features
     if n < p:
         F = F.T
 
+# standardize
 F = (F-F.mean(1)[:, None]) / (F.std(1)[:, None])
 
+# get source region data matrix and transpose
 A = F[sindices, :]
 print('ROI shape: {:}'.format(A.shape))
 
 print('Transpose to generate time X samples matrix.')
 A = A.T
 
+# if target regions supplied, get target region data matrix
 if target_exists:
     B = F[tindices, :]
 else:
     B = F[sindices, :]
 
 zeros = np.isnan(np.abs(B).sum(1))
+print('Zero index target region shape: {:}'.format(zeros.shape))
 B = B[~zeros, :]
 
 print('Target shape: {:}'.format(B.shape))
