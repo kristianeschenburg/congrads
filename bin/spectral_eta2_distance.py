@@ -78,19 +78,30 @@ if not os.path.isfile(distfile):
     print('Saving distance matrix.')
     sio.savemat(file_name=distfile, mdict=A)
 
+hops = list(np.arange(10, args.hop_distance, 10))
+hops = hops + ['Full']
+
 # loop over distances
-for hops in np.arange(1, args.hop_distance+1):
+for hp in hops:
 
-    print('Clustering at distance: {:}'.format(hops))
-
-    # threshold distance matrix
-    distmat = np.asarray(apsp <= hops)
-    print('{:} non-zero entries in distance matrix.'.format(distmat.sum()))
+    print('Clustering at distance: {:}'.format(hp))
 
     # sort eta matrix
     sorted_eta = eta[:, sort_inds]
     sorted_eta = sorted_eta[sort_inds, :]
-    sorted_eta = sorted_eta*distmat
+
+    try:
+        float(hp)
+    except ValueError:
+        print('Processing whole similarity matrix.')
+    else:
+        # threshold distance matrix
+        print('Processing distance-thresholded similarity matrix.')
+        distmat = np.asarray(apsp <= hp)
+        sorted_eta = sorted_eta*distmat
+    finally:
+        pass
+        
     print('{:} non-zero entries in eta matrix.'.format((sorted_eta != 0).sum()))
 
     # loop over cluster counts
@@ -108,5 +119,5 @@ for hops in np.arange(1, args.hop_distance+1):
         z[indices[sort_inds]] = labs
 
         out_path = '{:}{:}.L.{:}.Cluster.{:}.Distance.{:}.func.gii'.format(
-            args.dir, args.subject, args.outbase, clust_count, hops)
+            args.dir, args.subject, args.outbase, clust_count, hp)
         write.save(z, out_path, 'CortexLeft')
