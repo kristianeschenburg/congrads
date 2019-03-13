@@ -31,23 +31,12 @@ else:
     R = re.Extractor(args.label)
     region_map = R.map_regions()
 
-sindices=[]
-tindices=[]
-
-# get indices of source region
-for sr in args.sroi:
-    sindices.append(region_map[sr])
-sindices = np.concatenate(sindices)
-
-# if targets are supplied, get indices of targets
-# otherwise set to False
+# get source and target indices
+sindices = R.indices(region_map, args.sroi)
 if args.troi:
-   target_exists=True
-   for tr in args.troi:
-      tindices.append(region_map[tr])
-   tindices = np.concatenate(tindices)
+    tindices = R.indices(region_map, args.troi)
 else:
-   target_exists=False
+    tindices = list(set(np.arange(label.shape[0])).difference(set(sindices)))
 
 # Load feature matrix
 try:
@@ -78,11 +67,8 @@ print('ROI shape: {:}'.format(A.shape))
 print('Transpose to generate time X samples matrix.')
 A = A.T
 
-# if target regions supplied, get target region data matrix
-if target_exists:
-    B = F[tindices, :]
-else:
-    B = F[sindices, :]
+# get target region data matrix
+B = F[tindices, :]
 
 B[np.isnan(B)] = 0
 B[np.isinf(B)] = 0
