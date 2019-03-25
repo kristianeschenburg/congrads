@@ -61,7 +61,7 @@ F = (F-F.mean(1)[:, None]) / (F.std(1)[:, None])
 A = F[roi, :]
 print('ROI shape: {:}'.format(A.shape))
 
-print('Transpose to generate time X samples matrix.')
+print('Transpose to generate (n-features) by (m samples) matrix.')
 A = A.T
 
 if target_exists:

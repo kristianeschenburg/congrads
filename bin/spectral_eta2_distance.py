@@ -78,7 +78,7 @@ if not os.path.isfile(distfile):
     print('Saving distance matrix.')
     sio.savemat(file_name=distfile, mdict=A)
 
-hops = list(np.arange(10, args.hop_distance, 10))
+hops = list(np.arange(10, args.hop_distance+10, 10))
 hops = hops + ['Full']
 
 # loop over distances

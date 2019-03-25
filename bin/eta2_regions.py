@@ -30,22 +30,14 @@ else:
     label = loaded.load(args.label)
     R = re.Extractor(args.label)
     region_map = R.map_regions()
-
-sindices=[]
-tindices=[]
-
-# get indices of source region
-for sr in args.sroi:
-    sindices.append(region_map[sr])
-sindices = np.concatenate(sindices)
+    sindices = R.indices(region_map, args.sroi)
 
 # if targets are supplied, get indices of targets
 # otherwise set to False
 if args.troi:
    target_exists=True
-   for tr in args.troi:
-      tindices.append(region_map[tr])
-   tindices = np.concatenate(tindices)
+   tindices = R.indices(region_map, args.troi)
+
 else:
    target_exists=False
 
@@ -83,9 +75,9 @@ if target_exists:
     B = F[tindices, :]
 else:
     B = F[sindices, :]
-
 B[np.isnan(B)] = 0
 B[np.isinf(B)] = 0
+
 zeros = np.where(np.abs(B).sum(1) == 0)[0]
 print('Zero index target region shape: {:}'.format(zeros.shape))
 B = B[~zeros, :]
