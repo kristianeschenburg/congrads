@@ -1,4 +1,0 @@
-nohup: ignoring input
-usage: eigenmaps.py [-h] -s SUBJECT -r ROI -sim SIMILARITY -d DIR -o OUTPUT
-                    [-e EVECS] [-n NORMALIZE]
-eigenmaps.py: error: the following arguments are required: -o/--output
