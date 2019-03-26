@@ -1,5 +1,7 @@
 import argparse
 import numpy as np
+import scipy.io as sio
+
 from niio import loaded
 import os
 from fragmenter import RegionExtractor as re
@@ -7,13 +9,20 @@ from fragmenter import RegionExtractor as re
 from congrads import conmap
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-s', '--subject', help='Input subject name.', required=True, type=str)
-parser.add_argument('-f', '--features', help='Feature data file.', required=True, type=str)
-parser.add_argument('-l', '--label', help='Label file.', required=True, type=str)
-parser.add_argument('-sr', '--sroi', help='Source rois.', required=True, type=str, nargs='+')
-parser.add_argument('-tr', '--troi', help='Target rois.', required=False, type=str, default=None, nargs='+')
-parser.add_argument('-d', '--dir', help='Output directory.', required=True, type=str)
-parser.add_argument('-bo', '--base_out', help='Base output name, without extension.', required=True, type=str)
+parser.add_argument('-s', '--subject', help='Input subject name.',
+    required=True, type=str)
+parser.add_argument('-f', '--features', help='Feature data file.',
+    required=True, type=str)
+parser.add_argument('-l', '--label', help='Label file.', required=True,
+    type=str)
+parser.add_argument('-sr', '--sroi', help='Source rois.', required=True,
+    type=str, nargs='+')
+parser.add_argument('-tr', '--troi', help='Target rois.', required=False,
+    type=str, default=None, nargs='+')
+parser.add_argument('-d', '--dir', help='Output directory.', required=True,
+    type=str)
+parser.add_argument('-bo', '--base_out', help='Base output name, without extension.',
+    required=True, type=str)
 
 args = parser.parse_args()
 
@@ -30,22 +39,19 @@ else:
     label = loaded.load(args.label)
     R = re.Extractor(args.label)
     region_map = R.map_regions()
-<<<<<<< HEAD
     sindices = R.indices(region_map, args.sroi)
 
 # if targets are supplied, get indices of targets
 # otherwise set to False
 if args.troi:
-   target_exists=True
-   tindices = R.indices(region_map, args.troi)
+    target_exists = True
+    tindices = R.indices(region_map, args.troi)
 
-=======
 
 # get source and target indices
 sindices = R.indices(region_map, args.sroi)
 if args.troi:
     tindices = R.indices(region_map, args.troi)
->>>>>>> e19c8b7754f4f802171135db36f6d11cf3960b3b
 else:
     tindices = list(set(np.arange(label.shape[0])).difference(set(sindices)))
 
@@ -55,7 +61,7 @@ try:
 except:
     raise('Feature file for {:} does not exist.'.format(args.subject))
 else:
-    print ('Loading feature data.')
+    print('Loading feature data.')
     F = loaded.load(args.features)
     n, p = F.shape
 
@@ -78,17 +84,9 @@ print('ROI shape: {:}'.format(A.shape))
 print('Transpose to generate time X samples matrix.')
 A = A.T
 
-<<<<<<< HEAD
-# if target regions supplied, get target region data matrix
-if target_exists:
-    B = F[tindices, :]
-else:
-    B = F[sindices, :]
-=======
 # get target region data matrix
 B = F[tindices, :]
 
->>>>>>> e19c8b7754f4f802171135db36f6d11cf3960b3b
 B[np.isnan(B)] = 0
 B[np.isinf(B)] = 0
 
@@ -108,12 +106,13 @@ print('Computing similarity matrix.')
 E2 = conmap.eta2(R)
 
 print('Saving correlation and eta^2 matrix.')
-import scipy.io as sio
 r = {'r2': R}
 e = {'eta2': E2}
 
-fext_eta = '{:}{:}.L.Eta2.{:}.mat'.format(args.dir, args.subject, args.base_out)
-fext_cor = '{:}{:}.L.Corr.{:}.mat'.format(args.dir, args.subject, args.base_out)
+fext_eta = '{:}{:}.L.Eta2.{:}.mat'.format(args.dir, args.subject,
+    args.base_out)
+fext_cor = '{:}{:}.L.Corr.{:}.mat'.format(args.dir, args.subject,
+    args.base_out)
 
 sio.savemat(file_name=fext_cor, mdict=r)
 sio.savemat(file_name=fext_eta, mdict=e)
