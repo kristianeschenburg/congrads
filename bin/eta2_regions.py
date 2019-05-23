@@ -20,7 +20,7 @@ parser.add_argument('-sr', '--sroi', help='Source rois.', required=True,
 parser.add_argument('-tr', '--troi', help='Target rois.', required=False,
     type=str, default=None, nargs='+')
 parser.add_argument('-hemi', '--hemisphere', help='Hemisphere to process.',
-    required=False, default='L', choices=['L', 'R'] type=str)
+    required=False, default='L', choices=['L', 'R'], type=str)
 parser.add_argument('-d', '--dir', help='Output directory.', required=True,
     type=str)
 parser.add_argument('-bo', '--base_out', help='Base output name, without extension.',
