@@ -5,7 +5,8 @@ region_file=$2
 data_dir=$3
 hemisphere=$4
 
-CONGRAD_DIR=${GIT_DIR}/congrads
+git_dir=/mnt/parcellator/parcellation/Github
+CONGRAD_DIR=${git_dir}/congrads
 eta_script=${CONGRAD_DIR}/bin/eta2_regions.py
 
 if [ ${hemisphere} == "L" ]; then 
