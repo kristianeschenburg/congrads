@@ -5,7 +5,7 @@ region_file=$2
 data_dir=$3
 hemisphere=$4
 
-git_dir=/mnt/parcellator/parcellation/Github
+git_dir=/mnt/parcellator/parcellation/GitHub
 CONGRAD_DIR=${git_dir}/congrads
 eta_script=${CONGRAD_DIR}/bin/eta2_regions.py
 
