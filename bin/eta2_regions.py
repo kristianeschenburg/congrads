@@ -19,6 +19,8 @@ parser.add_argument('-sr', '--sroi', help='Source rois.', required=True,
     type=str, nargs='+')
 parser.add_argument('-tr', '--troi', help='Target rois.', required=False,
     type=str, default=None, nargs='+')
+parser.add_argument('-hemi', '--hemisphere', help='Hemisphere to process.',
+    required=False, default='L', choices=['L', 'R'] type=str)
 parser.add_argument('-d', '--dir', help='Output directory.', required=True,
     type=str)
 parser.add_argument('-bo', '--base_out', help='Base output name, without extension.',
@@ -109,10 +111,10 @@ print('Saving correlation and eta^2 matrix.')
 r = {'r2': R}
 e = {'eta2': E2}
 
-fext_eta = '{:}{:}.L.Eta2.{:}.mat'.format(args.dir, args.subject,
-    args.base_out)
-fext_cor = '{:}{:}.L.Corr.{:}.mat'.format(args.dir, args.subject,
-    args.base_out)
+fext_eta = '{:}{:}.{:}.Eta2.{:}.mat'.format(args.dir, args.subject,
+    args.hemisphere, args.base_out)
+fext_cor = '{:}{:}.{:}.Corr.{:}.mat'.format(args.dir, args.subject,
+    args.hemisphere, args.base_out)
 
 sio.savemat(file_name=fext_cor, mdict=r)
 sio.savemat(file_name=fext_eta, mdict=e)
