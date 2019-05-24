@@ -19,9 +19,20 @@ else
     exit 125
 fi
 
-python ${eigenmaps} -s ${subject} \
--l ${data_dir}Labels/Desikan/${subject}.${H}.aparc.32k_fs_LR.label.gii \
--sr ${source_region} \
--sim ${data_dir}Connectopy/Regional/${subject}/${source_region}/${subject}.${H}.Eta2.${source_region}.2.${target_region}.mat \
--d ${data_dir}Connectopy/Regional/${subject}/${source_region}/ \
--o ${subject}.${H}.${source_region}.2.${target_region}.Evecs.func.gii -hemi ${hemisphere}
+outDir=${data_dir}Connectopy/Regional/${subject}/${source_region}/
+outBase=${subject}.${H}.${source_region}.2.${target_region}.Evecs.func.gii
+outFile=${outDir}${outBase}
+
+if [ ! -f ${outFile} ]; then
+
+    echo ${outBase} "does not exist yet -- processing."
+
+    python ${eigenmaps} -s ${subject} \
+    -l ${data_dir}Labels/Desikan/${subject}.${H}.aparc.32k_fs_LR.label.gii \
+    -sr ${source_region} \
+    -sim ${outDir}${subject}.${H}.Eta2.${source_region}.2.${target_region}.mat \
+    -d ${outDir} \
+    -o ${outBase} \
+    -hemi ${hemisphere}
+
+fi
