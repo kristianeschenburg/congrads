@@ -1,16 +1,27 @@
 #/bin/bash
 
 subject=$1
-source_region=$2
-regions=$3
+data_dir=$2
+source_region=$3
+target_region=$4
+hemisphere=$5
 
-while read p
-do
+git_dir=/mnt/parcellator/parcellation/GitHub
+CONGRAD_DIR=${git_dir}/congrads
+eigenmaps=${CONGRAD_DIR}/bin/eigenmaps.py
 
-python eigenmaps.py -s ${subject} \
--r /mnt/parcellator/parcellation/HCP/Connectome_4/${subject}/Split_Surface_ROIS/Desikan_Killiany/func/L.${source_region}.func.gii \
--sim /mnt/parcellator/parcellation/parcellearning/Data/Connectopy/Regional/${subject}/${source_region}/${subject}.L.${source_region}.2.${p}.Eta2.mat \
--d /mnt/parcellator/parcellation/parcellearning/Data/Connectopy/Regional/${subject}/${source_region}/ \
--o ${subject}.L.${source_region}.2.${p}.Evecs.func.gii
+if [ ${hemisphere} == "L" ]; then
+    H="L"
+elif [ ${hemisphere} == "R" ]; then
+    H="R"
+else
+    echo "Error: Incorrect hemisphere option." > logfile.log
+    exit 125
+fi
 
-done <${regions}
+python ${eigenmaps} -s ${subject} \
+-l ${data_dir}Labels/Desikan/${subject}.${H}.aparc.32k_fs_LR.label.gii \
+-sr ${source_region} \
+-sim ${data_dir}Connectopy/Regional/${subject}/${source_region}/${subject}.${H}.Eta2.${source_region}.2.${target_region}.mat \
+-d ${data_dir}Connectopy/Regional/${subject}/${source_region}/ \
+-o ${subject}.${H}.${source_region}.2.${target_region}.Evecs.func.gii -hemi ${hemisphere}

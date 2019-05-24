@@ -92,8 +92,8 @@ B = F[tindices, :]
 B[np.isnan(B)] = 0
 B[np.isinf(B)] = 0
 
-zeros = np.where(np.abs(B).sum(1) == 0)[0]
-print('Zero index target region shape: {:}'.format(zeros.shape))
+zeros = (np.abs(B).sum(1) == 0)
+print('Zero indices: {:}'.format(zeros.sum()))
 B = B[~zeros, :]
 
 print('Target shape: {:}'.format(B.shape))

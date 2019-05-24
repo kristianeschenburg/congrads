@@ -23,6 +23,6 @@ do
 
     python ${eta_script} -s ${subj} -f ${data_dir}RestingState/${subj}.rfMRI_Z-Trans_merged_CORTEX_${H}.mat \
     -l ${data_dir}Labels/Desikan/${subj}.${hemisphere}.aparc.32k_fs_LR.label.gii \
-    -sr ${reg} -d ${data_dir}Connectopy/${subj}/Regional/${reg} -bo ${reg}.2.brain -hemi ${hemisphere}
+    -sr ${reg} -d ${data_dir}Connectopy/Regional/${subj}/${reg}/ -bo ${reg}.2.brain -hemi ${hemisphere}
 
 done < ${region_file}
