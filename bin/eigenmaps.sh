@@ -21,16 +21,18 @@ fi
 
 outDir=${data_dir}Connectopy/Regional/${subject}/${source_region}/
 outBase=${subject}.${H}.${source_region}.2.${target_region}.Evecs.func.gii
+simBase=${subject}.${H}.Eta2.${source_region}.2.${target_region}.mat
 outFile=${outDir}${outBase}
 
 if [ ! -f ${outFile} ]; then
 
     echo ${outBase} "does not exist yet -- processing."
+    echo 
 
     python ${eigenmaps} -s ${subject} \
     -l ${data_dir}Labels/Desikan/${subject}.${H}.aparc.32k_fs_LR.label.gii \
     -sr ${source_region} \
-    -sim ${outDir}${subject}.${H}.Eta2.${source_region}.2.${target_region}.mat \
+    -sim ${outDir}${simBase} \
     -d ${outDir} \
     -o ${outBase} \
     -hemi ${hemisphere}
