@@ -26,9 +26,6 @@ outFile=${outDir}${outBase}
 
 if [ ! -f ${outFile} ]; then
 
-    echo ${outBase} "does not exist yet -- processing."
-    echo ${simBase}
-
     python ${eigenmaps} -s ${subject} \
     -l ${data_dir}Labels/Desikan/${subject}.${H}.aparc.32k_fs_LR.label.gii \
     -sr ${source_region} \

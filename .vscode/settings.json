@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "/mnt/home/keschenb/anaconda3/bin/python",
+    "python.pythonPath": "/Users/kristianeschenburg/anaconda3/bin/python",
     "python.linting.pylintEnabled": false,
     "python.linting.flake8Enabled": false,
     "python.linting.enabled": true,
