@@ -24,6 +24,7 @@ fi
 while read source_region
 do
 
+    outDir=${data_dir}Connectopy/Regional/${subject}/Templated/${session}/${ori}
     outBase=${subject}.${H}.${source_region}.2.brain.Evecs.func.gii
     simBase=${subject}.${H}.Eta2.${source_region}.2.brain.mat
     outFile=${outDir}${outBase}
