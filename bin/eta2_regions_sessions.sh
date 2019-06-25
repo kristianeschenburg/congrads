@@ -21,6 +21,12 @@ else
     exit 125
 fi
 
+mkdir -p ${data_dir}Connectopy/Regional/${subj}
+mkdir -p ${data_dir}Connectopy/Regional/${subj}/Templated
+mkdir -p ${data_dir}Connectopy/Regional/${subj}/Templated/${session}
+mkdir -p ${data_dir}Connectopy/Regional/${subj}/Templated/${session}/${ori}
+writeDir=${data_dir}Connectopy/Regional/${subj}/Templated/${session}/${ori}/
+
 while read reg 
 do
 
@@ -28,7 +34,7 @@ do
     -f ${data_dir}RestingState/Sessions/${subj}.rfMRI_REST${session}_${ori}_Z-Trans.CORTEX_${H}.func.gii \
     -l ${data_dir}Labels/${atlas}/${H}.MaxProb.label.gii \
     -sr ${reg} \
-    -d ${data_dir}Connectopy/Regional/${subj}/Templated/${session}/${ori}/ \
+    -d ${writeDir} \
     -bo ${reg}.2.brain \
     -hemi ${hemisphere}
 
