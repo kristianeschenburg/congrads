@@ -4,8 +4,8 @@ subj=$1
 region_file=$2
 data_dir=$3
 atlas=$4
-ori=$5
-session=$6
+session=$5
+ori=$6
 hemisphere=$7
 
 git_dir=/mnt/parcellator/parcellation/GitHub
@@ -32,7 +32,7 @@ do
 
     python ${eta_script} -s ${subj} \
     -f ${data_dir}RestingState/Sessions/${subj}.rfMRI_REST${session}_${ori}_Z-Trans.CORTEX_${H}.func.gii \
-    -l ${data_dir}Labels/${atlas}/${H}.MaxProb.label.gii \
+    -l ${data_dir}Labels/${atlas}/${hemisphere}.MaxProb.label.gii \
     -sr ${reg} \
     -d ${writeDir} \
     -bo ${reg}.2.brain \

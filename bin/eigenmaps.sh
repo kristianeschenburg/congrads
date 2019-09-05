@@ -2,36 +2,41 @@
 
 subject=$1
 data_dir=$2
-source_region=$3
+region_list=$3
 target_region=$4
-hemisphere=$5
+atlas=$5
+hemisphere=$6
 
 git_dir=/mnt/parcellator/parcellation/GitHub
 CONGRAD_DIR=${git_dir}/congrads
 eigenmaps=${CONGRAD_DIR}/bin/eigenmaps.py
 
 if [ ${hemisphere} == "L" ]; then
-    H="L"
+    H="LEFT"
 elif [ ${hemisphere} == "R" ]; then
-    H="R"
+    H="RIGHT"
 else
     echo "Error: Incorrect hemisphere option." > logfile.log
     exit 125
 fi
 
-outDir=${data_dir}Connectopy/Regional/${subject}/${source_region}/
-outBase=${subject}.${H}.${source_region}.2.${target_region}.Evecs.func.gii
-simBase=${subject}.${H}.Eta2.${source_region}.2.${target_region}.mat
-outFile=${outDir}${outBase}
+while read region
+do
 
-if [ ! -f ${outFile} ]; then
+    outDir=${data_dir}Connectopy/${atlas}/${subject}/
+    outBase=${subject}.${hemisphere}.${region}.2.${target_region}.Evecs.func.gii
+    simBase=${subject}.${hemisphere}.Eta2.${region}.2.${target_region}.mat
+    outFile=${outDir}${outBase}
 
-    python ${eigenmaps} -s ${subject} \
-    -l ${data_dir}Labels/Desikan/${subject}.${H}.aparc.32k_fs_LR.label.gii \
-    -sr ${source_region} \
-    -sim ${outDir}${simBase} \
-    -d ${outDir} \
-    -o ${outBase} \
-    -hemi ${hemisphere}
+    if [ ! -f ${outFile} ]; then
 
-fi
+        python ${eigenmaps} -s ${subject} \
+        -l ${data_dir}Labels/${atlas}/${subject}.${hemisphere}.aparc.32k_fs_LR.label.gii \
+        -sr ${region} \
+        -sim ${outDir}${simBase} \
+        -d ${outDir} \
+        -o ${outBase} \
+        -hemi ${hemisphere}
+
+    fi
+done <${region_list}
