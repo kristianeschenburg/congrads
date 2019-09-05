@@ -38,4 +38,4 @@ do
         -hemi ${hemisphere}
 
     fi
-done
+done <${region_list}
