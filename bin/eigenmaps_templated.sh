@@ -3,8 +3,8 @@
 subject=$1
 data_dir=$2
 region_list=$3
-atlas=$5
-hemisphere=$6
+atlas=$4
+hemisphere=$5
 
 git_dir=/mnt/parcellator/parcellation/GitHub
 CONGRAD_DIR=${git_dir}/congrads
@@ -20,7 +20,7 @@ else
 fi
 
 while read source_region
-do
+do 
 
     outDir=${data_dir}Connectopy/Templated/${atlas}/${subject}/
     outBase=${subject}.${hemisphere}.${source_region}.2.brain.Evecs.func.gii
@@ -36,6 +36,6 @@ do
         -d ${outDir} \
         -o ${outBase} \
         -hemi ${hemisphere}
-        
+
     fi
 done
