@@ -91,7 +91,7 @@ if not os.path.exists(outEvecs):
     z = np.zeros((32492,y.shape[1]-1))
     for evec in range(0, y.shape[1]-1):
         z[inds, evec] = y[:, evec+1]
-    write.save(z, '%s.Signed' % (outEvecs), hemi_map[args.hemisphere])
+    write.save(z, '%s.Signed.func.gii' % (outEvecs), hemi_map[args.hemisphere])
 
     if args.normalize:
         for evec in range(0, y.shape[1] - 1):
@@ -104,4 +104,4 @@ if not os.path.exists(outEvecs):
     for evec in range(0, y.shape[1]-1):
         z[inds, evec] = y[:, evec+1]
 
-    write.save(z, outEvecs, hemi_map[args.hemisphere])
+    write.save(z, '%s.func.gii' % (outEvecs), hemi_map[args.hemisphere])
