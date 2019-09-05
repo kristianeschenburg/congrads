@@ -22,14 +22,15 @@ fi
 while read reg
 do
 
-    out_reg=${data_dir}Connectopy/${atlas}/${subj}/${subj}.${hemisphere}.Eta2.${reg}.2.brain.mat
+    out_dir=${data_dir}/Connectopy/Templated/${atlas}/${subj}/
+    out_reg=${out_dir}${subj}.${hemisphere}.Eta2.${reg}.2.brain.mat
 
     if [ ! -f ${out_reg} ]; then
         echo ${reg}
         
 	    python ${eta_script} -s ${subj} -f ${data_dir}/RestingState/${subj}.rfMRI_Z-Trans_merged.CORTEX_${H}.func.gii \
-        -l ${data_dir}/Labels/${atlas}/${subj}.${hemisphere}.aparc.32k_fs_LR.label.gii \
-        -sr ${reg} -d ${data_dir}/Connectopy/${atlas}/${subj}/ -bo ${reg}.2.brain -hemi ${hemisphere}
+        -l ${data_dir}/Labels/${atlas}/${hemisphere}.100.aparc.32k_fs_LR.label.gii \
+        -sr ${reg} -d ${out_dir} -bo ${reg}.2.brain -hemi ${hemisphere}
     fi
 
 done < ${region_file}
