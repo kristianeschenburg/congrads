@@ -18,8 +18,6 @@ parser.add_argument('-sr', '--sroi', help='Source rois.', required=True,
     type=str, nargs='+')
 parser.add_argument('-sim', '--similarity', help='Similarity matrix.',
     required=True, type=str)
-parser.add_argument('-d', '--dir', help='Output directory.',
-    required=True, type=str)
 parser.add_argument('-o', '--output', help='Output name, without extension.',
     required=True, type=str)
 parser.add_argument('-e', '--evecs', help='Number of eigenvalues to compute.',
@@ -32,10 +30,7 @@ parser.add_argument('-hemi', '--hemisphere', help='Hemisphere to process.',
 
 args = parser.parse_args()
 
-outEvecs = ''.join([args.dir, args.output])
-
-hemi_map = {'L': 'CortexLeft',
-            'R': 'CortexRight'}
+outEvecs = args.output
 
 try:
     assert os.path.isfile(args.label)
@@ -91,7 +86,7 @@ if not os.path.exists(outEvecs):
     z = np.zeros((32492,y.shape[1]-1))
     for evec in range(0, y.shape[1]-1):
         z[inds, evec] = y[:, evec+1]
-    write.save(z, '%s.Signed.func.gii' % (outEvecs), hemi_map[args.hemisphere])
+    write.save(z, '%s.Signed.func.gii' % (outEvecs), args.hemisphere)
 
     if args.normalize:
         for evec in range(0, y.shape[1] - 1):
@@ -104,4 +99,4 @@ if not os.path.exists(outEvecs):
     for evec in range(0, y.shape[1]-1):
         z[inds, evec] = y[:, evec+1]
 
-    write.save(z, '%s.func.gii' % (outEvecs), hemi_map[args.hemisphere])
+    write.save(z, '%s.func.gii' % (outEvecs), args.hemisphere)
