@@ -21,7 +21,8 @@ do
         
 	    python ${eta_script} -s ${subj} -f ${data_dir}/RestingState/${subj}.${hemisphere}.rest.Z.merged.func.gii \
         -l ${data_dir}/Labels/${atlas}/${hemisphere}.100.aparc.32k_fs_LR.label.gii \
-        -sr ${reg} -d ${out_dir} -bo ${reg}.2.brain -hemi ${hemisphere}
+        -sr ${reg} -d ${out_dir} -bo ${reg}.2.brain -hemi ${hemisphere} \
+        -pi True -pf True
     fi
 
 done < ${region_file}
