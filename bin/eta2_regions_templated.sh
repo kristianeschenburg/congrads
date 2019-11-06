@@ -6,6 +6,12 @@ data_dir=$3
 atlas=$4
 hemisphere=$5
 
+echo ${subj}
+echo ${region_file}
+echo ${data_dir}
+echo ${atlas}
+echo ${hemisphere}
+
 git_dir=/mnt/parcellator/parcellation/GitHub
 CONGRAD_DIR=${git_dir}/congrads
 eta_script=${CONGRAD_DIR}/bin/eta2_regions.py

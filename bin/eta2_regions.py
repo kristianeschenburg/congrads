@@ -44,6 +44,8 @@ parser.add_argument('-pi', '--iters',
 
 args = parser.parse_args()
 
+print(args)
+
 def eta2(data, sinds, tinds):
 
     """
