@@ -97,20 +97,19 @@ else:
     label = loaded.load(args.label)
     R = re.Extractor(args.label)
     region_map = R.map_regions()
-    sindices = R.indices(region_map, args.sroi)
 
 # if targets are supplied, get indices of targets
 # otherwise set to False
 if args.troi:
     target_exists = True
-    tindices = R.indices(region_map, args.troi)
+    tinds = R.indices(region_map, args.troi)
 
 # get source and target indices
-sindices = R.indices(region_map, args.sroi)
+sinds = R.indices(region_map, args.sroi)
 if args.troi:
-    tindices = R.indices(region_map, args.troi)
+    tinds = R.indices(region_map, args.troi)
 else:
-    tindices = list(set(np.arange(label.shape[0])).difference(set(sindices)))
+    tinds = list(set(np.arange(label.shape[0])).difference(set(sinds)))
 
 # Load feature matrix
 try:
@@ -129,17 +128,14 @@ else:
 F[np.isnan(F)] = 0
 F[np.isinf(F)] = 0
 
-sinds = np.arange(10)
-tinds = list(set(np.arange(label.shape[0])).difference(set(sinds)))
-
 if args.full:
 
     print('Processing full.')
 
-    fext_eta = '%s%s.%s.Eta2.%s.mat' % (
+    fext_eta = '%s%s.%s.Eta2.%s.Full.mat' % (
         args.dir, args.subject, args.hemisphere, args.base_out)
 
-    fext_cor = '%s%s.%s.Corr.%s.mat' % (
+    fext_cor = '%s%s.%s.Corr.%s.Full.mat' % (
         args.dir, args.subject, args.hemisphere, args.base_out)
 
     if not os.path.exists(fext_eta) and not os.path.exists(fext_cor):
