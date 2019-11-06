@@ -20,7 +20,7 @@ while read reg
 do
 
     out_dir=${data_dir}/Connectopy/Templated/${atlas}/${subj}/
-    out_reg=${out_dir}${subj}.${hemisphere}.Eta2.${reg}.2.brain.mat
+    out_reg=${out_dir}${subj}.${hemisphere}.Eta2.${reg}.2.brain.Full.mat
 
     if [ ! -f ${out_reg} ]; then
         echo ${reg}
