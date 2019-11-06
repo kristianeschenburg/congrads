@@ -98,12 +98,6 @@ else:
     R = re.Extractor(args.label)
     region_map = R.map_regions()
 
-# if targets are supplied, get indices of targets
-# otherwise set to False
-if args.troi:
-    target_exists = True
-    tinds = R.indices(region_map, args.troi)
-
 # get source and target indices
 sinds = R.indices(region_map, args.sroi)
 if args.troi:
