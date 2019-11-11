@@ -14,9 +14,9 @@ CONGRAD_DIR=${git_dir}/congrads
 eigenmaps=${CONGRAD_DIR}/bin/eigenmaps.py
 
 if [ ${atlas} == 'Desikan' ]; then
-	labext = 'aparc'
+	labext="aparc"
 elif [ ${atlas} == 'Destrieux' ]; then
-	labext = 'aparc.a2009s'
+	labext="aparc.a2009s"
 fi
 
 while read source_region
