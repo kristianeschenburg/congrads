@@ -17,10 +17,11 @@ while read source_region
 do 
 
     outDir=${conn_dir}/${subject}/
-    outBase=${subject}.${hemisphere}.${source_region}.2.brain.Evecs
-    simBase=${subject}.${hemisphere}.Eta2.${source_region}.2.brain.mat
+    outBase=${subject}.${hemisphere}.${source_region}.2.brain.Evecs.Full
+    simBase=${subject}.${hemisphere}.Eta2.${source_region}.2.brain.Full.mat
     outFile=${outDir}${outBase}
 
+    # Full resting-state connectopy
     if [ ! -f ${outFile} ]; then
 
         python ${eigenmaps} -s ${subject} \
@@ -31,4 +32,24 @@ do
         -hemi ${hemisphere}
 
     fi
+
+    # Loop over session connectopies
+    for iter in $(seq 0 3); do
+        
+        outBase=${subject}.${hemisphere}.${source_region}.2.brain.Evecs.Iter.${iter}
+        simBase=${subject}.${hemisphere}.Eta2.${source_region}.2.brain.Iter.${iter}.mat
+        outFile=${outDir}${outBase}
+
+        if [ ! -f ${outFile} ]; then
+
+            python ${eigenmaps} -s ${subject} \
+            -l ${labl_dir}/${atlas}/${hemisphere}.100.aparc.32k_fs_LR.label.gii \
+            -sr ${source_region} \
+            -sim ${outDir}${simBase} \
+            -o ${outFile} \
+            -hemi ${hemisphere}
+
+        fi
+    done
+
 done <${region_list}

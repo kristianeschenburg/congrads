@@ -61,6 +61,7 @@ class BLR:
             self.post(hyp, X, y)
 
     def post(self, hyp, X, y):
+
         """ Generic function to compute posterior distribution.
             This function will save the posterior mean and precision matrix as
             self.m and self.A and will also update internal parameters (e.g.
@@ -101,6 +102,7 @@ class BLR:
         self.hyp = hyp
 
     def loglik(self, hyp, X, y):
+
         """ Function to compute compute log (marginal) likelihood """
 
         # hyperparameters (only beta needed)
@@ -144,6 +146,7 @@ class BLR:
         return nlZ
 
     def dloglik(self, hyp, X, y):
+
         """ Function to compute derivatives """
 
         # hyperparameters
@@ -214,17 +217,19 @@ class BLR:
         return dnlZ
 
     # model estimation (optimization)
+
     def estimate(self, hyp0, X, y, optimizer='cg'):
         """ Function to estimate the model """
 
         if optimizer.lower() == 'cg':  # conjugate gradients
             out = optimize.fmin_cg(self.loglik, hyp0, self.dloglik, (X, y),
-                                   disp=True, gtol=self.tol,
-                                   maxiter=self.n_iter, full_output=1)
+                                    gtol=self.tol,
+                                    maxiter=self.n_iter, 
+                                    full_output=1, disp=False)
 
         elif optimizer.lower() == 'powell':  # Powell's method
             out = optimize.fmin_powell(self.loglik, hyp0, (X, y),
-                                       full_output=1)
+                                       full_output=1, disp=False)
         else:
             raise ValueError("unknown optimizer")
 
@@ -235,6 +240,7 @@ class BLR:
         return self.hyp
 
     def predict(self, hyp, X, y, Xs):
+
         """ Function to make predictions from the model """
 
         if (hyp != self.hyp).all() or not(hasattr(self, 'A')):
@@ -244,6 +250,7 @@ class BLR:
         beta = np.exp(hyp[0])
 
         ys = Xs.dot(self.m)
+
         # compute xs.dot(S).dot(xs.T) avoiding computing off-diagonal entries
         s2 = 1/beta + np.sum(Xs*linalg.solve(self.A, Xs.T).T, axis=1)
 

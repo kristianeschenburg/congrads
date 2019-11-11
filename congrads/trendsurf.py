@@ -62,7 +62,6 @@ def save_nifti(data,filename,examplenii,maskIndices):
 def create_basis(X, dimpoly):
 
     dimx = X.shape[1]
-    print('Generating polynomial basis set of degree',str(dimpoly),'...')
     Phi = np.zeros((X.shape[0], X.shape[1]*dimpoly))
     colid = np.arange(0,dimx)
     for d in range(1, dimpoly+1):
@@ -81,28 +80,28 @@ def main(filename, maskfile, outdir, basis, ard=False):
                   * explainedvar - explained variance
                   * rmse - standardised mean squared error
                   * trendcoeffvar - marginal variances """
-	
+
     from bayesreg import BLR
     np.seterr(invalid='ignore')
 
     # load data
-    print("Processing data in",filename)
-    Y,X,maskIndices = load_data(filename,maskfile)
+    print("Processing data in", filename)
+    Y, X, maskIndices = load_data(filename, maskfile)
     Y = np.round(10000*Y) / 10000  # truncate precision to avoid numerical probs
     if len(Y.shape) == 1:
-        Y = Y[:,np.newaxis]
+        Y = Y[:, np.newaxis]
     N = Y.shape[1]
 
     # standardize responses and covariates
-    mY = np.mean(Y,axis=0)
-    sY = np.std(Y,axis=0)
+    mY = np.mean(Y, axis=0)
+    sY = np.std(Y, axis=0)
     Yz = (Y-mY)/sY
-    mX = np.mean(X,axis=0)
-    sX = np.std(X,axis=0)
+    mX = np.mean(X, axis=0)
+    sX = np.std(X, axis=0)
     Xz = (X-mX)/sX
 
     # create basis set and set starting hyperparamters
-    Phi = create_basis(Xz,basis)
+    Phi = create_basis(Xz, basis)
     if ard is True:
         hyp0 = np.zeros(Phi.shape[1]+1)
     else:
@@ -112,32 +111,32 @@ def main(filename, maskfile, outdir, basis, ard=False):
     yhat = np.zeros_like(Yz)
     ys2  = np.zeros_like(Yz)
     nlZ  = np.zeros(N)
-    hyp  = np.zeros((N,len(hyp0)))
+    hyp  = np.zeros((N, len(hyp0)))
     rmse = np.zeros(N)
     ev   = np.zeros(N)
-    m    = np.zeros((N,Phi.shape[1]))
-    bs2  = np.zeros((N,Phi.shape[1]))
+    m    = np.zeros((N, Phi.shape[1]))
+    bs2  = np.zeros((N, Phi.shape[1]))
 
     for i in range(0, N):
-        print("Estimating model ",i+1,"of",N)
+        # print("Estimating model ",i+1,"of",N)
         breg = BLR()
-        hyp[i,:] = breg.estimate(hyp0,Phi,Yz[:,i],'powell')
-        m[i,:] = breg.m
+        hyp[i, :] = breg.estimate(hyp0, Phi, Yz[:, i], 'powell')
+        m[i, :] = breg.m
         nlZ[i] = breg.nlZ
 
         # compute marginal variances
         bs2[i] = np.sqrt(np.diag(np.linalg.inv(breg.A)))
 
         # compute predictions and errors
-        yhat[:,i],ys2[:,i] = breg.predict(hyp[i,:],Phi,Yz[:,i],Phi)
-        yhat[:,i] = yhat[:,i]*sY[i] + mY[i]
-        rmse[i] = np.sqrt(np.mean((Y[:,i]-yhat[:,i])**2))
-        ev[i] = 100*(1-(np.var(Y[:,i]-yhat[:,i])/np.var(Y[:,i])))
+        yhat[:, i], ys2[:, i] = breg.predict(hyp[i, :], Phi, Yz[:, i], Phi)
+        yhat[:, i] = yhat[:, i]*sY[i] + mY[i]
+        rmse[i] = np.sqrt(np.mean((Y[:, i]-yhat[:, i])**2))
+        ev[i] = 100*(1-(np.var(Y[:, i]-yhat[:, i])/np.var(Y[:, i])))
 
-        print("Variance explained =",ev[i],"% RMSE =",rmse[i])
+        # print("Variance explained =",ev[i],"% RMSE =",rmse[i])
 
-    print("Mean (std) variance explained =",ev.mean(),"(",ev.std(),")")
-    print("Mean (std) RMSE =",rmse.mean(),"(",rmse.std(),")")
+    print("Mean (std) variance explained =", ev.mean(), "(", ev.std(), ")")
+    print("Mean (std) RMSE =", rmse.mean(), "(", rmse.std(), ")")
 
     # Write output
     print("Writing output ...")
@@ -158,7 +157,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Trend Surface Model")
     parser.add_argument("-i", help="input file", dest="filename",required=True)
     parser.add_argument("-r", help="mask file", dest="maskfile",required=True)
-    parser.add_argument("-o", help="path to output directory", dest="outdir",required=True)
+    parser.add_argument("-o", help="path to output directory", dest="outdir", required=True)
     parser.add_argument("-b <int>", help="model order", type=int, dest="basis", default=3)
     args = parser.parse_args()
     main(args.filename, args.maskfile, args.outdir, args.basis)
