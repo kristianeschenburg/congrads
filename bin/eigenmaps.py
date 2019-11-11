@@ -6,7 +6,7 @@ from niio import write, loaded
 from scipy.linalg import eigh
 
 from fragmenter import RegionExtractor as re
-from congrads import conmap
+from congrads import conmap, eigenmaps
 
 parser = argparse.ArgumentParser()
 
@@ -47,6 +47,8 @@ except:
     raise('Similarity matrix does not exist.')
 else:
     sim = loaded.load(args.similarity)
+
+
 
 sim[np.isnan(sim)] = 0
 sim[np.isinf(sim)] = 0

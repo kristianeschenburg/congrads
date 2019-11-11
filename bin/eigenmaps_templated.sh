@@ -13,6 +13,12 @@ git_dir=/mnt/parcellator/parcellation/GitHub
 CONGRAD_DIR=${git_dir}/congrads
 eigenmaps=${CONGRAD_DIR}/bin/eigenmaps.py
 
+if [ ${atlas} == 'Desikan' ]; then
+	labext = 'aparc'
+elif [ ${atlas} == 'Destrieux' ]; then
+	labext = 'aparc.a2009s'
+fi
+
 while read source_region
 do 
 
@@ -25,7 +31,7 @@ do
     if [ ! -f ${outFile} ]; then
 
         python ${eigenmaps} -s ${subject} \
-        -l ${labl_dir}/${atlas}/${hemisphere}.100.aparc.32k_fs_LR.label.gii \
+        -l ${labl_dir}/${atlas}/${hemisphere}.100.${labext}.32k_fs_LR.label.gii \
         -sr ${source_region} \
         -sim ${outDir}${simBase} \
         -o ${outFile} \
@@ -43,7 +49,7 @@ do
         if [ ! -f ${outFile} ]; then
 
             python ${eigenmaps} -s ${subject} \
-            -l ${labl_dir}/${atlas}/${hemisphere}.100.aparc.32k_fs_LR.label.gii \
+            -l ${labl_dir}/${atlas}/${hemisphere}.100.${labext}.32k_fs_LR.label.gii \
             -sr ${source_region} \
             -sim ${outDir}${simBase} \
             -o ${outFile} \
