@@ -86,32 +86,29 @@ def eta2(data, sinds, tinds):
 
     return [E2, R]
 
+
 if not os.path.exists(args.dir):
     print('Output directory does not exist -- creating now.')
     os.mkdir(args.dir)
 
 # Load region of interest
-try:
-    assert os.path.isfile(args.label)
-except:
-    raise('Label file does not exist.')
+if not os.path.isfile(args.label):
+    raise FileExistsError('Label file does not exist.')
 else:
     label = loaded.load(args.label)
     R = re.Extractor(args.label)
-    region_map = R.map_regions()
+    index_map = R.map_regions()
 
 # get source and target indices
-sinds = R.indices(region_map, args.sroi)
+sinds = index_map[args.sroi]
 if args.troi:
-    tinds = R.indices(region_map, args.troi)
+    tinds = index_map[args.troi]
 else:
     tinds = list(set(np.arange(label.shape[0])).difference(set(sinds)))
 
 # Load feature matrix
-try:
-    assert os.path.isfile(args.features)
-except:
-    raise('Feature file for {:} does not exist.'.format(args.subject))
+if not os.path.isfile(args.features):
+    raise FileExistsError('Features file does not exist.')
 else:
     print('Loading feature data.')
     F = loaded.load(args.features)

@@ -43,7 +43,7 @@ def eigenmap(sim, inds, normalize=True, evecs=6):
         y[:, evec] = np.multiply(y[:, evec],
                                 np.sign(np.corrcoef(y[:, evec], corr_vec)[0, 1]))
     
-    sign_flipped = np.zeros((32492,y.shape[1]-1))
+    sign_flipped = np.zeros((32492, y.shape[1]-1))
     for evec in range(0, y.shape[1]-1):
         sign_flipped[inds, evec] = y[:, evec+1]
         
