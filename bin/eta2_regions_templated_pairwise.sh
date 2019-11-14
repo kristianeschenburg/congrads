@@ -1,10 +1,11 @@
 #/bin/bash
 
 subj=$1
-region_file=$2
-data_dir=$3
-atlas=$4
-hemisphere=$5
+data_dir=$2
+atlas=$3
+hemisphere=$4
+
+region_file=${data_dir}Labels/${atlas}/regions.txt
 
 echo ${subj}
 echo ${region_file}
@@ -17,9 +18,9 @@ CONGRAD_DIR=${git_dir}/congrads
 eta_script=${CONGRAD_DIR}/bin/eta2_regions.py
 
 if [ ${atlas} == 'Desikan' ]; then
-	labext = 'aparc'
+	labext='aparc'
 elif [ ${atlas} == 'Destrieux' ]; then
-	labext = 'aparc.a2009s'
+	labext='aparc.a2009s'
 fi
 
 out_dir=${data_dir}/Connectopy/Templated/${atlas}/${subj}/Pairwise/
