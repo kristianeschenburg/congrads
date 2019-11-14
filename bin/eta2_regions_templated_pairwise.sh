@@ -23,6 +23,12 @@ elif [ ${atlas} == 'Destrieux' ]; then
 	labext='aparc.a2009s'
 fi
 
+label_file=${data_dir}/Labels/${atlas}/${hemisphere}.100.${labext}.32k_fs_LR.label.gii
+echo ${label_file}
+
+feature_file=${data_dir}/RestingState/${subj}.${hemisphere}.rest.Z.merged.func.gii
+echo ${feature_file}
+
 out_dir=${data_dir}/Connectopy/Templated/${atlas}/${subj}/Pairwise/
 mkdir -p ${out_dir}
 
@@ -32,7 +38,6 @@ do
     echo "Processing: "${sreg}
 
     out_sreg_dir=${out_dir}${sreg}/
-    mkdir -p ${out_sreg_dir}
 
     while read treg
     do
@@ -41,8 +46,8 @@ do
 
         if [ ! -f ${out_sreg_dir} ]; then
             
-            python ${eta_script} -s ${subj} -f ${data_dir}/RestingState/${subj}.${hemisphere}.rest.Z.merged.func.gii \
-            -l ${data_dir}/Labels/${atlas}/${hemisphere}.100.${labext}.32k_fs_LR.label.gii \
+            python ${eta_script} -s ${subj} -f ${feature_file} \
+            -l ${label_file} \
             -sr ${sreg} -tr ${treg} -d ${out_sreg_dir} -bo ${sreg}.2.${treg} -hemi ${hemisphere} \
             -pi True -pf True
         fi
