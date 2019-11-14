@@ -20,10 +20,10 @@ parser.add_argument('-l', '--label',
                         type=str)
 parser.add_argument('-sr', '--sroi', 
                         help='Source rois.', required=True,
-                        type=str, nargs='+')
+                        type=str)
 parser.add_argument('-tr', '--troi', 
                         help='Target rois.', required=False,
-                        type=str, default=None, nargs='+')
+                        type=str, default=None)
 parser.add_argument('-hemi', '--hemisphere', 
                         help='Hemisphere to process.',
                         required=False, default='L', 
