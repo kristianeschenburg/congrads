@@ -150,14 +150,9 @@ if args.iters:
         r_data = F[:, inds[0]:inds[1]]
         [E, R] = eta2(r_data, sinds, tinds)
 
-        r = {'r2': R}
         e = {'eta2': E}
 
         fext_eta = '%s%s.%s.Eta2.%s.Iter.%i.mat' % (
             args.dir, args.subject, args.hemisphere, args.base_out, itx)
 
-        fext_cor = '%s%s.%s.Corr.%s.Iter.%i.mat' % (
-            args.dir, args.subject, args.hemisphere, args.base_out, itx)
-
-        sio.savemat(file_name=fext_cor, mdict=r)
         sio.savemat(file_name=fext_eta, mdict=e)

@@ -2,60 +2,61 @@ import numpy as np
 from scipy.linalg import eigh
 from congrads import conmap
 
-def eigenmap(sim, inds, normalize=True, evecs=6):
-    
+def eigenmaps(similarity, sinds, evecs):
     """
-    Compute eigenmaps of eta2 matrix.
-    
+    Compute the eigenmaps of a given similarity matrix.
+
     Parameters:
     - - - - -
-    sim: float, array
-        eta2 matrix
-    inds: list
-        list of indices in cortical map to which eigenmap projects onto
+    similarity: float, array
+        symmetric similarity matrix
+    evecs: int
+        number of eigenvectors to compute
+    normalize: bool
+        generate [0, 1] ranging eigenvectors
+
+    Returns:
+    - - - -
+    vectors: float, array
+        eigenvectors of similarity matrix
     """
-    
-    sim[np.isnan(sim)] = 0
-    sim[np.isinf(sim)] = 0
-    
-    row_sums = np.where(np.abs(sim).sum(1) != 0)[0]
-    col_sums = np.where(np.abs(sim).sum(0) != 0)[0]
+
+    similarity[np.isnan(similarity)] = 0
+    similarity[np.isinf(similarity)] = 0
+
+    row_sums = (np.abs(similarity).sum(1) != 0)
+    col_sums = (np.abs(similarity).sum(0) != 0)
 
     assert np.all(row_sums == col_sums)
-    sim = sim[:, row_sums][col_sums, :]
-    inds = inds[row_sums]
-    
-    # compute distance and adjacency matrix
-    distance = conmap.norm(sim)
+    S = similarity[:, row_sums][col_sums, :]
+    inds = sinds[row_sums]
+
+    print('Computing distance matrix.')
+    distance = conmap.norm(S)
+
+    print('Computing adjacency matrix.')
     adj = conmap.adjacency(distance)
-    
-    # compute graph laplacian
-    W = np.multiply(adj, sim)
+
+    print('Computing laplacian.')
+    W = np.multiply(adj, S)
     D = np.diag(np.sum(W, 0))
     L = np.subtract(D, W)
-    
-    # compute eigendecomposition of laplacian
+
+    print('Computing the dominant ' + str(evecs) + ' connectopic maps...')
     l, y = eigh(L, D, eigvals=(0, evecs))
-    
-    # correct vectors for sign
+
+    print('Normalizing eigenvectors and correcting sign.')
     corr_vec = np.arange(len(inds))
+
+    # compute sign-flipped eigenvectors
+    sign_flipped = np.zeros((y.shape))
     for evec in range(1, y.shape[1]):
-        y[:, evec] = np.multiply(y[:, evec],
-                                np.sign(np.corrcoef(y[:, evec], corr_vec)[0, 1]))
-    
-    sign_flipped = np.zeros((32492, y.shape[1]-1))
-    for evec in range(0, y.shape[1]-1):
-        sign_flipped[inds, evec] = y[:, evec+1]
-        
-    # normalized to range [0, 1]
-    if normalize:
-        for evec in range(0, y.shape[1] - 1):
-            # normalize to range 0-1
-            tmp = y[:, evec] - min(y[:, evec])
-            y[:, evec] = np.divide(tmp, (max(y[:, evec]) - min(y[:, evec])))
-            
-    normalized = np.zeros((32492, y.shape[1]-1))
-    for evec in range(0, y.shape[1]-1):
-        normalized[inds, evec] = y[:, evec+1]
-        
-    return [sign_flipped, normalized]
+        sign_flipped[:, evec] = np.multiply(y[:, evec],
+                                            np.sign(np.corrcoef(y[:, evec], corr_vec)[0, 1]))
+    sign_flipped[:, 0] = y[:, 0]
+
+    signed = np.zeros((32492, sign_flipped.shape[1]-1))
+    for evec in range(0, sign_flipped.shape[1]-1):
+        signed[inds, evec] = sign_flipped[:, evec+1]
+
+    return signed
