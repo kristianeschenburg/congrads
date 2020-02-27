@@ -45,14 +45,16 @@ def eigenmaps(similarity, sinds, evecs):
     print('Computing the dominant ' + str(evecs) + ' connectopic maps...')
     l, y = eigh(L, D, eigvals=(0, evecs))
 
-    print('Normalizing eigenvectors and correcting sign.')
     corr_vec = np.arange(len(inds))
 
     # compute sign-flipped eigenvectors
     sign_flipped = np.zeros((y.shape))
     for evec in range(1, y.shape[1]):
-        sign_flipped[:, evec] = np.multiply(y[:, evec],
-                                            np.sign(np.corrcoef(y[:, evec], corr_vec)[0, 1]))
+        temp = np.multiply(y[:, evec], 
+                        np.sign(np.corrcoef(y[:, evec], corr_vec)[0, 1]))
+
+        sign_flipped[:, evec] = temp
+
     sign_flipped[:, 0] = y[:, 0]
 
     signed = np.zeros((32492, sign_flipped.shape[1]-1))
