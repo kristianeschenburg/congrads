@@ -48,10 +48,12 @@ def eta2(X):
     S = np.zeros((X.shape[0], X.shape[0]))
     for i in range(0, X.shape[0]):
         for j in range(i, X.shape[0]):
-            mi = np.mean([X[i, :], X[j, :]], 0) 
-            mm = np.mean(mi)
-            ssw = np.sum(np.square(X[i, :]-mi) + np.square(X[j, :]-mi))
-            sst = np.sum(np.square(X[i, :]-mm) + np.square(X[j, :]-mm))
+
+            mi = np.nanmean([X[i, :], X[j, :]], 0) 
+            mm = np.nanmean(mi)
+			
+            ssw = np.nansum(np.square(X[i, :]-mi) + np.square(X[j, :]-mi))
+            sst = np.nansum(np.square(X[i, :]-mm) + np.square(X[j, :]-mm))
             S[i, j] = 1-ssw/sst
     
     S += S.T 
